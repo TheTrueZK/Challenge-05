@@ -1,7 +1,7 @@
 var dateEntry = document.getElementById('currentDay');
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+var mm = String(today.getMonth() + 1).padStart(2, '0');
 var yyyy = today.getFullYear();
 
 today = mm + '/' + dd + '/' + yyyy;
@@ -17,13 +17,32 @@ $(document).ready(function () {
     })
 })
 
-$("#8-am .description").val(localStorage.getItem("8-am"));
-$("#9-am .description").val(localStorage.getItem("9-am"));
-$("#10-am .description").val(localStorage.getItem("10-am"));
-$("#11-am .description").val(localStorage.getItem("11-am"));
-$("#12-pm .description").val(localStorage.getItem("12-pm"));
-$("#1-pm .description").val(localStorage.getItem("1-pm"));
-$("#2-pm .description").val(localStorage.getItem("2-pm"));
-$("#3-pm .description").val(localStorage.getItem("3-pm"));
-$("#4-pm .description").val(localStorage.getItem("4-pm"));
-$("#5-pm .description").val(localStorage.getItem("5-pm"));
+function hourTracker() {
+    var  currentTime= moment().hour();
+
+    $(".time-block").each(function () {
+        var blockTime = parseInt($(this).attr("id").split("hour")[1]);
+
+        if (blockTime < currentTime) {
+            $(this).removeClass(["present", "future"]).addClass("past");
+        }
+        else if (blockTime === currentTime) {
+            $(this).removeClass(["past", "future"]).addClass("present");
+        }
+        else {
+            $(this).removeClass(["past", "present"]).addClass("future");
+        }
+    })
+}
+
+$("#hour9 .description").val(localStorage.getItem("hour9"));
+$("#hour10 .description").val(localStorage.getItem("hour10"));
+$("#hour11 .description").val(localStorage.getItem("hour11"));
+$("#hour12 .description").val(localStorage.getItem("hour12"));    
+$("#hour13 .description").val(localStorage.getItem("hour13"));
+$("#hour14 .description").val(localStorage.getItem("hour14"));
+$("#hour15 .description").val(localStorage.getItem("hour15"));
+$("#hour16 .description").val(localStorage.getItem("hour16"));
+$("#hour17 .description").val(localStorage.getItem("hour17"));
+
+hourTracker();
